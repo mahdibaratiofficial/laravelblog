@@ -12,5 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::prefix('shop')->group(function (){
+    Route::get('/',function (){return view('shop');});
+    Route::get('show/{slug}',function ($slug){return view('showPost',['slug'=>$slug]);});
+});
+
+Route::get('content',function (){ return view('content'); });
+Route::get('cart',function (){ return view('cart'); });
+Route::get('checkout',function (){ return view('checkout'); });
+Route::get('test',function (){
+    return view('test',['name'=>"Mahdi"]);
+});
+
