@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('index');
@@ -24,6 +25,7 @@ Route::get('content',function (){ return view('content'); });
 Route::get('cart',function (){ return view('cart'); });
 Route::get('checkout',function (){ return view('checkout'); });
 Route::get('test',function (){
-    return view('test',['name'=>"Mahdi"]);
+    $name=DB::table('comments')->get();
+    return view('test',['name'=>$name]);
 });
 

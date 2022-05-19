@@ -18,17 +18,14 @@
     @endcomponent
     <h1>Test Page</h1>
 
-    {{ $name }}
-    <br>
+    <hr>
     @isset($name)
-        <p>Salam Family</p>
+        @if(!isset($name->body))
+            @foreach($name as $value)
+                {{"salam"}}<br>
+            @endforeach
+        @else
+            {{$name->body}}
+        @endif
     @endisset
-
-    @auth
-        Salam man Autham
-    @endauth
-
-    @guest
-        Salam man guestam
-    @endguest
 @endsection
