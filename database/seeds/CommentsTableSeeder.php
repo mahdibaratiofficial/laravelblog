@@ -1,9 +1,9 @@
 <?php
 
-use App\Products;
 use Illuminate\Database\Seeder;
+use App\Comments;
 
-class ProductTableSeeder extends Seeder
+class CommentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,6 +12,6 @@ class ProductTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Products::class,10)->create();
-     }    
+        factory(Comments::class,10)->create();
+    }
 }
