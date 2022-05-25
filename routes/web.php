@@ -11,7 +11,11 @@
 |
 */
 
+// use Illuminate\Routing\Route;
+
+use App\Products;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 Route::get('/', function () {
     return view('index');
@@ -49,4 +53,33 @@ Route::get('test', function () {
     // $name=DB::table('users')->where('email','mahdibarati696@gmail.com')->update(['name'=>'Mahdi Barati']);
     $name = DB::table('users')->select('name')->where('id', 2)->dd();
     return view('test', ['name' => $name]);
+});
+
+
+Route::prefix('admin')->group(function () {
+    Route::get('/', function () {
+        return view('admin.index');
+    });
+
+    Route::get('/addproduct', function () {
+        return view('admin.pages.addproduct');
+    });
+
+    Route::post('/product/insert', function () {
+        $validator = Validator::make(request()->all(), [
+            'product' => 'required|min:5|max:50',
+            'types' => 'required|min:5|max:20',
+            "product_description",
+            "price"=>'between:10000,1000000',
+            "gender"=>"required",
+            "photos"=>"required",
+            "size",
+            "color",
+            "count",
+            "type",
+            "rate",
+        ])->validated();
+
+        Products::create([]);
+    });
 });
