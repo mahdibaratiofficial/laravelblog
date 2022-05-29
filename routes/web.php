@@ -16,6 +16,7 @@
 use App\Products;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Process\Process;
 
 Route::get('/', function () {
     return view('index');
@@ -62,24 +63,73 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::get('/addproduct', function () {
-        return view('admin.pages.addproduct');
+        return view('admin.pages.addproduct', ['insert' => true]);
     });
 
     Route::post('/product/insert', function () {
+
         $validator = Validator::make(request()->all(), [
             'product' => 'required|min:5|max:50',
             'types' => 'required|min:5|max:20',
-            "product_description",
-            "price"=>'between:10000,1000000',
-            "gender"=>"required",
-            "photos"=>"required",
-            "size",
-            "color",
-            "count",
-            "type",
-            "rate",
+            "product_description" => "required",
+            "price" => 'between:3,7',
+            "gender" => "required",
+            "photos" => "required",
+            "size" => "required|min:1|max:5",
+            "colors" => "required|min:2|max:10",
+            "count" => 'required|numeric',
         ])->validated();
 
-        Products::create([]);
+        Products::create([
+            'product' => $validator['product'],
+            'slug' => $validator['product'],
+            'type' => $validator['types'],
+            'product_description' => $validator['product_description'],
+            'price' => $validator['price'],
+            'photos' => $validator['photos'],
+            'gender' => $validator['gender'],
+            'size' => $validator['size'],
+            "color" => $validator['colors'],
+            'count' => $validator['count'],
+        ]);
+    });
+
+    Route::get('edit/{product}', function ($product) {
+        $pro = Products::findOrFail($product)->first();
+
+        dd($pro);
+        return view('admin.pages.addproduct', [
+            'product' => $pro,
+            'edit' => true
+        ]);
+    });
+
+    Route::post('/update/{product}', function ($product) {
+        $pro = Products::findOrFail($product);
+        $validator = Validator::make(request()->all(), [
+            'product' => 'required|min:5|max:50',
+            'types' => 'required|min:5|max:20',
+            "product_description" => "required",
+            "price" => 'between:3,7',
+            "gender" => "required",
+            "photos" => "required",
+            "size" => "required|min:1|max:5",
+            "colors" => "required|min:2|max:10",
+            "count" => 'required|numeric',
+        ]);
+
+        $pro->update([
+            'product' => $validator['product'],
+            'slug' => $validator['product'],
+            'type' => $validator['types'],
+            'product_description' => $validator['product_description'],
+            'price' => $validator['price'],
+            'photos' => $validator['photos'],
+            'gender' => $validator['gender'],
+            'size' => $validator['size'],
+            "color" => $validator['colors'],
+            'count' => $validator['count'],
+        ]);
+        return redirect()->back();
     });
 });
