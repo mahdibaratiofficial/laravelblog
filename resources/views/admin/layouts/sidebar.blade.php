@@ -8,7 +8,7 @@
       </li>
 
       <li class="nav-item ">
-        <a class="nav-link" href="admin/addproduct">
+        <a class="nav-link" href="/admin/addproduct">
           <i class="icon-grid menu-icon"></i>
           <span class="menu-title">Add Product</span>
         </a>
