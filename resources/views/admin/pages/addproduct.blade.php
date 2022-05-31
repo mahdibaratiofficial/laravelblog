@@ -1,9 +1,6 @@
 @extends('admin.layouts.master')
 @section('title','Add Products')
 @section('Content')
-@php
-dd(isset_product($product->title));
-@endphp
 <div class="main-panel">
     <div class="page-wrapper bg-gra-02 p-t-130 p-b-100 font-poppins">
         <div class="wrapper wrapper--w680">
@@ -19,24 +16,19 @@ dd(isset_product($product->title));
                     </div>
                     @endif
                     <h2 class="title">add New Product</h2>
-                    @isset($insert)
-                    <form method="POST" action="insert">
-                        @endisset
-                        @isset($edit)
-                        <form method="POST" action="admin/update/{{ $product->id }}">
-                            @endisset
+                    <form method="POST" action="/admin/product/insert">
                             @csrf
                             @method('post')
                             <div class="row row-space">
                                 <div class="col-6">
                                     <div class="input-group">
                                         <input class="input--style-4" type="text" name="product"
-                                            placeholder="Product Name" value="{{  }}">
+                                            placeholder="Product Name">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="input-group">
-                                        <select name="types" class="form-control">
+                                        <select name="type" class="form-control">
                                             <option value="type1" selected="selected">Choose Type</option>
                                             <option value="type2">Type:2</option>
                                             <option value="type3">Type:3</option>
@@ -85,7 +77,7 @@ dd(isset_product($product->title));
                                 <div class="col-3">
                                     <div class="input-group">
                                         {{-- <label class="label">Color</label> --}}
-                                        <select name="colors" class="form-control">
+                                        <select name="color" class="form-control">
                                             <option value="Choose" selected="selected">Choose Color</option>
                                             <option value="Blue">Blue</option>
                                             <option value="Red">Red</option>
