@@ -24,7 +24,7 @@
                             @method('DELETE')
                             <input type="submit" class="btn btn-danger" value="Delete!">
                         </form>
-                      <a href="/admin/edit/{{ $product->id }}" class="btn btn-info">Edit</a>
+                      <a href="/admin/edit/{{ $product->slug }}" class="btn btn-info">Edit</a>
                     </div>
                 </td>
             </tr>

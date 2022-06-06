@@ -24,12 +24,16 @@ Route::prefix('shop')->group(function () {
     Route::get('/', "PagesController@shop");
     Route::get('show/{ProductSlug}', "PagesController@singleProduct");
 });
-Route::prefix('admin')->namespace('Admin')->group(function () {
-    Route::get('/', "PagesController@index");
+Route::prefix('admin')->namespace('Admin')->middleware('auth')->group(function () {
+    Route::get('/', "PagesController@index")->name('admin');
     Route::get('/addproduct', "PagesController@addProductPage");
     Route::post('/product/insert', "ProductController@Insert");
     Route::get('edit/{ProductSlug}', "PagesController@Edit");
-    Route::post('/update/{product}', "ProductController@Update");
+    Route::post('/update/{products}', "ProductController@Update");
     Route::get('products',"PagesController@Products");
     Route::delete('delete/{id}',"ProductController@Delete");
 });
+
+Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');

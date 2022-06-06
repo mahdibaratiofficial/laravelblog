@@ -4,20 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Products;
+use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
 {
     public function index()
     {
+        session()->flush();
+        // session(['name'=>'mahdi','family'=>'barati']);
+        // session()->put(['name'=>'mahdi']);
         return view('index');
     }
     public function shop()
     {
-        return view('shop');
+        $products = DB::table('products')->get();
+        return view('shop',['products'=>$products]);
     }
     public function singleProduct(Products $Products)
     {
-        return view('showPost', ['slug' => $Products->getOriginal()]);
+        return view('showPost', ['product' => $Products->getOriginal()]);
     }
     public function Content()
     {
@@ -35,7 +40,6 @@ class PagesController extends Controller
 
     public function Test()
     {
-        $name = DB::table('users')->select('name')->where('id', 2)->dd();
-        return view('test', ['name' => $name]);
+        // return view('test', ['name' => $name]);
     }
 }

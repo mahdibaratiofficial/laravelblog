@@ -17,12 +17,11 @@ class ProductController extends Controller
         return back();
     }
 
-    public function Update(ProductRequest $request,$product){
-        $pro = Products::findOrFail($product);
+    public function Update(ProductRequest $request,Products $products){
         $validator =$request->validated();
         $validator['slug']=preg_replace('/\s/',"_",$validator['product']);
-        $pro->update($validator);
-        return redirect()->back();
+        $products->update($validator);
+        return redirect('/admin/products');
     }
 
     public function Delete($id){

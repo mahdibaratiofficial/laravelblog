@@ -22,8 +22,31 @@
             <a href="http://127.0.0.1:8000/test" class="nav-item nav-link">Test</a>
         </div>
         <div class="navbar-nav ml-auto py-0">
-            <a href="" class="nav-item nav-link">Login</a>
-            <a href="" class="nav-item nav-link">Register</a>
+            {{-- @if (@auth()->check())
+            <a href="{{ route('admin') }}" class="btn btn-info">Admin</a>
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                @method('post')
+                <button class="btn btn-danger">logout</button>
+            </form>
+            @else
+            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+            <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
+            @endif --}}
+
+            @if(@auth()->check())
+            <a href="{{ route('admin') }}" class="btn btn-info">Admin</a>
+            <form method="post" action="/logout" >
+                @csrf
+                @method('post')
+                <input type="text" name="fale">
+                {{-- @method('post') --}}
+                <input type="submit" name="logout" value="logout" class="btn btn-danger">
+            </form>
+            @else
+            <a href="{{ route('login') }}" class="nav-item nav-link">Login</a>
+            <a href="{{ route('register') }}" class="nav-item nav-link">Register</a>
+            @endif
         </div>
     </div>
 </nav>

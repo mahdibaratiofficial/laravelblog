@@ -11,20 +11,21 @@ class PagesController extends Controller
 {
     public function index()
     {
+        // dd(auth()->user()->getOriginal());
         return view('admin.index');
     }
 
     public function addProductPage()
     {
+        // dd(session()->all());
         return view('admin.pages.addproduct');
     }
 
     public function Edit(Products $Products)
     {
-        
         if ($Products) {
             return view('admin.pages.update', [
-                'product' => $Products->toArray()
+                'product' => $Products->getOriginal()
             ]);
         }
         abort(404);
